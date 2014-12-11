@@ -35,7 +35,7 @@ var Post = new mystique.Transformer({
   }
 });
 
-module.exports = Post
+module.exports = Post;
 ```
 
 
