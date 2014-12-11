@@ -1,6 +1,6 @@
 {
   "name": "mystique",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "An object transformer for keeping your API happy and clean of direct ties to your data store.",
   "main": "index.js",
   "scripts": {
@@ -11,9 +11,9 @@
     "email": "ryan.tablada@gmail.com",
     "url": "http://ryantablada.com"
   },
-  "repository" : {
-    "type" : "git",
-    "url" : "https://github.com/rtablada/mystique.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rtablada/mystique.git"
   },
   "license": "MIT",
   "dependencies": {
