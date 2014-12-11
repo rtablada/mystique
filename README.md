@@ -75,9 +75,40 @@ var Mystique = require('mystique'),
     PostTransformer = Mystique.getTransformer('Post');
 ```
 
+## Transforming Results
+
+Mystique transformers support transforming either single items or collections of items.
+For instance to transform the results from Mongoose in a route you could do something like this:
+
+```js
+var Mystique = require('mystique'),
+    PostTransformer = Mystique.getTransformer('Post');
+
+router.get('/', function(req, res) {
+  Post.find(function(err, results) {
+    if (err) {
+      res.status(500).json(err);
+    } else {
+      res.json(PostTransformer.collection(results));
+    }
+  });
+});
+
+router.get(':post_id', function(req, res) {
+  Post.find({ "_id": req.params.post_id }, function(err, results) {
+    if (err) {
+      res.status(500).json(err);
+    } else {
+      res.json(PostTransformer.item(results[0]));
+    }
+  });
+});
+```
+
 ## TODO
 
 * More error handling
+* Sideloaded Relations
 * Create Result Objects
 * Create Serializers
 * Meta Data Story
