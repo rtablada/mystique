@@ -6,7 +6,15 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": {
+    "name": "Ryan Tablada",
+    "email": "ryan.tablada@gmail.com",
+    "url": "http://ryantablada.com"
+  },
+  "repository" : {
+    "type" : "git",
+    "url" : "https://github.com/rtablada/mystique.git"
+  },
   "license": "MIT",
   "dependencies": {
     "pluralize": "^1.1.0",
