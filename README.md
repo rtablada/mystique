@@ -81,6 +81,7 @@ var Mystique = require('mystique'),
 * Create Result Objects
 * Create Serializers
 * Meta Data Story
+* Tests
 
 ## License
 
