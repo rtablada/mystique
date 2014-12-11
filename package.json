@@ -1,7 +1,7 @@
 {
   "name": "mystique",
   "version": "0.1.0",
-  "description": "An object mapper for keeping your API happy and clean of direct ties to your data store.",
+  "description": "An object transformer for keeping your API happy and clean of direct ties to your data store.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
