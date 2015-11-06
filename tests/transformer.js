@@ -63,4 +63,36 @@ describe('Transformer', () => {
       });
     });
   });
+
+  describe('Transform Collections', () => {
+    it('can transform a collection of posts', () => {
+      expect(PostTransformer.collection(db.posts)).to.deep.equal({
+        posts: [
+          {
+            'first-name': 'Ryan',
+            'last-name': 'Tablada',
+            title: 'Post 1',
+            year: 2015,
+          },
+          {
+            'first-name': 'Ryan',
+            'last-name': 'Tablada',
+            title: 'Post 2',
+            year: 2015,
+          },
+        ],
+      });
+    });
+
+    it('can transform a collection of people', () => {
+      expect(PersonTransformer.collection(db.people)).to.deep.equal({
+        people: [
+          {
+            'first-name': 'Ryan',
+            'last-name': 'Tablada',
+          },
+        ],
+      });
+    });
+  });
 });
