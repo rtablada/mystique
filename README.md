@@ -26,7 +26,7 @@ To define a transformer, only two things are needed:
 ```js
 var Mystique = require('mystique');
 
-var Post = new mystique.Transformer({
+var Post = Mystique.Transformer.extend({
   resourceName: 'post',
   map: function (item) {
     return {
@@ -54,7 +54,7 @@ The `registerTransformer` function takes two arguments:
 2. A Transformer Definition
 
 ```js
-var Post = new mystique.Transformer({
+var Post = Mystique.Transformer.extend({
   resourceName: 'post',
   map: function (item) {
     return {
@@ -77,6 +77,8 @@ The `getTransformer` function takes a single argument:
 var Mystique = require('mystique'),
     PostTransformer = Mystique.getTransformer('Post');
 ```
+
+This returns a new instance of the looked up transformer using the `new` keyword.
 
 ## Transforming Results
 

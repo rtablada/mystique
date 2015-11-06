@@ -4,7 +4,7 @@ const expect = require('chai').expect;
 const Transformer = require('../lib').Transformer;
 const db = require('./dummies/db');
 
-const PostTransformer = new Transformer({
+const PostTransformer = Transformer.extend({
   resourceName: 'post',
   map(item) {
     return {
@@ -16,7 +16,7 @@ const PostTransformer = new Transformer({
   },
 });
 
-const PersonTransformer = new Transformer({
+const PersonTransformer = Transformer.extend({
   resourceName: 'person',
   pluralName: 'people',
   map(item) {
@@ -28,23 +28,32 @@ const PersonTransformer = new Transformer({
 });
 
 describe('Transformer', () => {
+  var postTransformer = new PostTransformer();
+  var personTransformer = new PersonTransformer();
+
   describe('Resource Names', () => {
     it('can determine singular resource names', () => {
-      expect(PostTransformer.getSingularResourceName()).to.equal('post');
+      console.log(postTransformer);
+      expect(postTransformer.getSingularResourceName()).to.equal('post');
     });
 
     it('can determine plural resource names using pluralizer', () => {
-      expect(PostTransformer.getPluralResourceName()).to.equal('posts');
+      expect(postTransformer.getPluralResourceName()).to.equal('posts');
     });
 
     it('can determine plural resource names using property', () => {
-      expect(PersonTransformer.getPluralResourceName()).to.equal('people');
+      expect(personTransformer.getPluralResourceName()).to.equal('people');
     });
   });
 
   describe('Transform Items', () => {
-    it('can transform a post', () => {
-      expect(PostTransformer.item(db.posts[0])).to.deep.equal({
+    beforeEach(() => {
+      postTransformer = new PostTransformer(db.posts[0]);
+      personTransformer = new PersonTransformer(db.people[0]);
+    });
+
+    it('can transform a post on constructed data', () => {
+      expect(postTransformer.item()).to.deep.equal({
         post: {
           'first-name': 'Ryan',
           'last-name': 'Tablada',
@@ -54,19 +63,35 @@ describe('Transformer', () => {
       });
     });
 
-    it('can transform a person', () => {
-      expect(PersonTransformer.item(db.people[0])).to.deep.equal({
+    it('can transform a person on constructed data', () => {
+      expect(personTransformer.item()).to.deep.equal({
         person: {
           'first-name': 'Ryan',
           'last-name': 'Tablada',
         },
       });
     });
+
+    it('can transform on passed in data', () => {
+      expect(postTransformer.item(db.posts[1])).to.deep.equal({
+        post: {
+          'first-name': 'Ryan',
+          'last-name': 'Tablada',
+          title: 'Post 2',
+          year: 2015,
+        },
+      });
+    });
   });
 
   describe('Transform Collections', () => {
+    beforeEach(() => {
+      postTransformer = new PostTransformer();
+      personTransformer = new PersonTransformer();
+    });
+
     it('can transform a collection of posts', () => {
-      expect(PostTransformer.collection(db.posts)).to.deep.equal({
+      expect(postTransformer.collection(db.posts)).to.deep.equal({
         posts: [
           {
             'first-name': 'Ryan',
@@ -85,7 +110,7 @@ describe('Transformer', () => {
     });
 
     it('can transform a collection of people', () => {
-      expect(PersonTransformer.collection(db.people)).to.deep.equal({
+      expect(personTransformer.collection(db.people)).to.deep.equal({
         people: [
           {
             'first-name': 'Ryan',
