@@ -4,7 +4,7 @@
   "description": "An object transformer for keeping your API happy and clean of direct ties to your data store.",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha --reporter spec"
+    "test": "./node_modules/.bin/mocha tests --reporter spec"
   },
   "author": {
     "name": "Ryan Tablada",
