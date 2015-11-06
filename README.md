@@ -1,6 +1,7 @@
 # Mystique
 
 [![npm version](https://badge.fury.io/js/mystique.svg)](https://badge.fury.io/js/mystique)
+[![Build Status](https://travis-ci.org/rtablada/mystique.svg?branch=master)](https://travis-ci.org/rtablada/mystique)
 
 Things are not always as they seem!
 
