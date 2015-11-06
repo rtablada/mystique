@@ -1,6 +1,6 @@
 {
   "name": "mystique",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "An object transformer for keeping your API happy and clean of direct ties to your data store.",
   "main": "index.js",
   "scripts": {
