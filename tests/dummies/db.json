@@ -1,0 +1,39 @@
+{
+  "posts": [
+    {
+      "user": {
+        "id": 1,
+        "firstName": "Ryan",
+        "lastName": "Tablada"
+      },
+      "post": {
+        "id": 1,
+        "title": "Post 1"
+      },
+      "meta": {
+        "date": 2015
+      }
+    },
+    {
+      "user": {
+        "id": 1,
+        "firstName": "Ryan",
+        "lastName": "Tablada"
+      },
+      "post": {
+        "id": 2,
+        "title": "Post 2"
+      },
+      "meta": {
+        "date": 2015
+      }
+    }
+  ],
+  "people": [
+    {
+      "id": 1,
+      "firstName": "Ryan",
+      "lastName": "Tablada"
+    }
+  ]
+}
