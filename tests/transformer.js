@@ -4,18 +4,6 @@ const expect = require('chai').expect;
 const Transformer = require('../lib').Transformer;
 const db = require('./dummies/db');
 
-const PostTransformer = Transformer.extend({
-  resourceName: 'post',
-  map(item) {
-    return {
-      'first-name': item.user.firstName,
-      'last-name': item.user.lastName,
-      title: item.post.title,
-      year: item.meta.date,
-    };
-  },
-});
-
 const PersonTransformer = Transformer.extend({
   resourceName: 'person',
   pluralName: 'people',
@@ -23,6 +11,25 @@ const PersonTransformer = Transformer.extend({
     return {
       'first-name': item.firstName,
       'last-name': item.lastName,
+    };
+  },
+});
+
+const PostTransformer = Transformer.extend({
+  resourceName: 'post',
+
+  includes: {
+    author(item) {
+      return this.relatedItem(PersonTransformer, item.user, 'author');
+    },
+  },
+
+  map(item) {
+    return {
+      'first-name': item.user.firstName,
+      'last-name': item.user.lastName,
+      title: item.post.title,
+      year: item.meta.date,
     };
   },
 });
@@ -205,6 +212,22 @@ describe('Transformer', () => {
           title: 'Post 2',
           year: 2015,
         },
+      });
+    });
+  });
+
+  describe('Including Items', () => {
+    beforeEach(() => {
+      postTransformer = new PostTransformer();
+      personTransformer = new PersonTransformer();
+    });
+
+    it('can transform author data for a single post', () => {
+      postTransformer.setData(db.posts[1]);
+
+      expect(postTransformer.renderInclude('author')).to.deep.equal({
+        'first-name': 'Ryan',
+        'last-name': 'Tablada',
       });
     });
   });
