@@ -120,6 +120,41 @@ describe('Transformer', () => {
     });
   });
 
+  describe('Transform Raw Collections', () => {
+    beforeEach(() => {
+      postTransformer = new PostTransformer();
+      personTransformer = new PersonTransformer();
+    });
+
+    it('can transform a collection of posts', () => {
+      expect(postTransformer.rawCollection(db.posts)).to.deep.equal([
+        {
+          'first-name': 'Ryan',
+          'last-name': 'Tablada',
+          title: 'Post 1',
+          year: 2015,
+        },
+        {
+          'first-name': 'Ryan',
+          'last-name': 'Tablada',
+          title: 'Post 2',
+          year: 2015,
+        },
+      ]);
+    });
+
+    it('can transform a collection of people', () => {
+      expect(personTransformer.collection(db.people)).to.deep.equal({
+        people: [
+          {
+            'first-name': 'Ryan',
+            'last-name': 'Tablada',
+          },
+        ],
+      });
+    });
+  });
+
   describe('Transform Collections', () => {
     beforeEach(() => {
       postTransformer = new PostTransformer();
