@@ -47,8 +47,13 @@ describe('Transformer', () => {
   });
 
   describe('Transform Items', () => {
-    it('can transform a post', () => {
-      expect(postTransformer.item(db.posts[0])).to.deep.equal({
+    beforeEach(() => {
+      postTransformer = new PostTransformer(db.posts[0]);
+      personTransformer = new PersonTransformer(db.people[0]);
+    });
+
+    it('can transform a post on constructed data', () => {
+      expect(postTransformer.item()).to.deep.equal({
         post: {
           'first-name': 'Ryan',
           'last-name': 'Tablada',
@@ -58,17 +63,33 @@ describe('Transformer', () => {
       });
     });
 
-    it('can transform a person', () => {
-      expect(personTransformer.item(db.people[0])).to.deep.equal({
+    it('can transform a person on constructed data', () => {
+      expect(personTransformer.item()).to.deep.equal({
         person: {
           'first-name': 'Ryan',
           'last-name': 'Tablada',
         },
       });
     });
+
+    it('can transform on passed in data', () => {
+      expect(postTransformer.item(db.posts[1])).to.deep.equal({
+        post: {
+          'first-name': 'Ryan',
+          'last-name': 'Tablada',
+          title: 'Post 2',
+          year: 2015,
+        },
+      });
+    });
   });
 
   describe('Transform Collections', () => {
+    beforeEach(() => {
+      postTransformer = new PostTransformer();
+      personTransformer = new PersonTransformer();
+    });
+
     it('can transform a collection of posts', () => {
       expect(postTransformer.collection(db.posts)).to.deep.equal({
         posts: [
