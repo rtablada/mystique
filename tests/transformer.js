@@ -9,6 +9,7 @@ const PersonTransformer = Transformer.extend({
   pluralName: 'people',
   map(item) {
     return {
+      id: item.id,
       'first-name': item.firstName,
       'last-name': item.lastName,
     };
@@ -26,6 +27,7 @@ const PostTransformer = Transformer.extend({
 
   map(item) {
     return {
+      id: item.post.id,
       'first-name': item.user.firstName,
       'last-name': item.user.lastName,
       title: item.post.title,
@@ -61,6 +63,7 @@ describe('Transformer', () => {
 
     it('can transform a post on constructed data', () => {
       expect(postTransformer.rawItem()).to.deep.equal({
+        id: 1,
         'first-name': 'Ryan',
         'last-name': 'Tablada',
         title: 'Post 1',
@@ -71,6 +74,7 @@ describe('Transformer', () => {
     it('can transform a person on constructed data', () => {
       expect(personTransformer.item()).to.deep.equal({
         person: {
+          id: 1,
           'first-name': 'Ryan',
           'last-name': 'Tablada',
         },
@@ -80,6 +84,7 @@ describe('Transformer', () => {
     it('can transform on passed in data', () => {
       expect(postTransformer.item(db.posts[1])).to.deep.equal({
         post: {
+          id: 2,
           'first-name': 'Ryan',
           'last-name': 'Tablada',
           title: 'Post 2',
@@ -98,6 +103,7 @@ describe('Transformer', () => {
     it('can transform a post on constructed data', () => {
       expect(postTransformer.item()).to.deep.equal({
         post: {
+          id: 1,
           'first-name': 'Ryan',
           'last-name': 'Tablada',
           title: 'Post 1',
@@ -109,6 +115,7 @@ describe('Transformer', () => {
     it('can transform a person on constructed data', () => {
       expect(personTransformer.item()).to.deep.equal({
         person: {
+          id: 1,
           'first-name': 'Ryan',
           'last-name': 'Tablada',
         },
@@ -118,6 +125,7 @@ describe('Transformer', () => {
     it('can transform on passed in data', () => {
       expect(postTransformer.item(db.posts[1])).to.deep.equal({
         post: {
+          id: 2,
           'first-name': 'Ryan',
           'last-name': 'Tablada',
           title: 'Post 2',
@@ -136,12 +144,14 @@ describe('Transformer', () => {
     it('can transform a collection of posts', () => {
       expect(postTransformer.rawCollection(db.posts)).to.deep.equal([
         {
+          id: 1,
           'first-name': 'Ryan',
           'last-name': 'Tablada',
           title: 'Post 1',
           year: 2015,
         },
         {
+          id: 2,
           'first-name': 'Ryan',
           'last-name': 'Tablada',
           title: 'Post 2',
@@ -154,6 +164,7 @@ describe('Transformer', () => {
       expect(personTransformer.collection(db.people)).to.deep.equal({
         people: [
           {
+            id: 1,
             'first-name': 'Ryan',
             'last-name': 'Tablada',
           },
@@ -172,12 +183,14 @@ describe('Transformer', () => {
       expect(postTransformer.collection(db.posts)).to.deep.equal({
         posts: [
           {
+            id: 1,
             'first-name': 'Ryan',
             'last-name': 'Tablada',
             title: 'Post 1',
             year: 2015,
           },
           {
+            id: 2,
             'first-name': 'Ryan',
             'last-name': 'Tablada',
             title: 'Post 2',
@@ -191,6 +204,7 @@ describe('Transformer', () => {
       expect(personTransformer.collection(db.people)).to.deep.equal({
         people: [
           {
+            id: 1,
             'first-name': 'Ryan',
             'last-name': 'Tablada',
           },
@@ -207,6 +221,7 @@ describe('Transformer', () => {
 
       expect(postTransformer.item()).to.deep.equal({
         post: {
+          id: 2,
           'first-name': 'Ryan',
           'last-name': 'Tablada',
           title: 'Post 2',
@@ -226,9 +241,22 @@ describe('Transformer', () => {
       postTransformer.setData(db.posts[1]);
 
       expect(postTransformer.renderInclude('author')).to.deep.equal({
+        id: 1,
         'first-name': 'Ryan',
         'last-name': 'Tablada',
       });
+    });
+
+    it('can transform author data for multiple posts', () => {
+      postTransformer.setData(db.posts);
+
+      expect(postTransformer.renderInclude('author')).to.deep.equal([
+        {
+          id: 1,
+          'first-name': 'Ryan',
+          'last-name': 'Tablada',
+        }
+      ]);
     });
   });
 });
