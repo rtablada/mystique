@@ -191,4 +191,21 @@ describe('Transformer', () => {
       });
     });
   });
+
+  describe('Setting Data', () => {
+    var postTransformer = new PostTransformer(db.posts[0]);
+
+    it('can transform on passed in data', () => {
+      postTransformer.setData(db.posts[1]);
+
+      expect(postTransformer.item()).to.deep.equal({
+        post: {
+          'first-name': 'Ryan',
+          'last-name': 'Tablada',
+          title: 'Post 2',
+          year: 2015,
+        },
+      });
+    });
+  });
 });
