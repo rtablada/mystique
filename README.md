@@ -1,5 +1,7 @@
 # Mystique
 
+[![npm version](https://badge.fury.io/js/mystique.svg)](https://badge.fury.io/js/mystique)
+
 Things are not always as they seem!
 
 This library is a thin abstraction to allow you to map your domain logic results to something suitable for your API output.
